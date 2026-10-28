@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+<title>BUILT FOR HEAT | AR COLLECTION</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #e9e5da;
+  color: #30392f;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+main {
+  max-width: 480px;
+  margin: auto;
+  padding: 30px 22px 45px;
+}
+
+.brand {
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 1.7;
+}
+
+h1 {
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin: 30px 0 20px;
+}
+
+.preview {
+  width: 100%;
+  height: 370px;
+  object-fit: contain;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.arrow {
+  width: 46px;
+  height: 46px;
+  border: 1px solid #30392f;
+  border-radius: 50%;
+  background: transparent;
+  color: #30392f;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.info {
+  flex: 1;
+}
+
+.number {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.name {
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin-top: 8px;
+}
+
+.ar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: #30392f;
+  color: white;
+  text-decoration: none;
+  padding: 17px;
+  margin-top: 25px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.ar-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.counter {
+  font-size: 12px;
+  margin-top: 18px;
+  letter-spacing: 3px;
+}
+
+.note {
+  font-size: 12px;
+  color: #666b61;
+  line-height: 1.7;
+  margin-top: 25px;
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<div class="brand">
+BUILT FOR HEAT — MADE FOR HERE<br>
+SPRING / SUMMER 2027
+</div>
+
+<h1>EXPLORE THE LOOKS</h1>
+
+<img id="preview"
+class="preview"
+src="look01.png"
+alt="Fashion Look Preview">
+
+<div class="selector">
+
+<button class="arrow"
+onclick="changeLook(-1)"
+aria-label="Previous Look">
+&#10094;
+</button>
+
+<div class="info">
+<div class="number" id="number"></div>
+<div class="name" id="name"></div>
+</div>
+
+<button class="arrow"
+onclick="changeLook(1)"
+aria-label="Next Look">
+&#10095;
+</button>
+
+</div>
+
+<a id="arButton" class="ar-button" href="index.html">
+  <img id="arIcon" class="ar-icon"
+       src="look01.png" alt="">
+  <span>VIEW IN AR</span>
+</a>
+
+<div class="counter" id="counter"></div>
+
+<p class="note">
+Select your look using the arrows.<br>
+Experience the collection in augmented reality.<br>
+Best viewed on iPhone Safari.
+</p>
+
+</main>
+
+<script>
+const looks = [
+  {
+    number: "LOOK 01",
+    name: "AIR IN MOTION",
+    image: "look01.png",
+    model: "index.html",
+    directAR: false
+  },
+  {
+    number: "LOOK 02",
+    name: "SOFT STRUCTURE",
+    image: "look 2.png",
+    model: "Look 02 .usdz",
+    directAR: true
+  },
+  {
+    number: "LOOK 03",
+    name: "UTILITY IN MOTION",
+    image: "Look 03.png",
+    model: "Look 03.usdz",
+    directAR: true
+  },
+  {
+    number: "LOOK 04",
+    name: "TROPICAL UTILITY",
+    image: "Look 04.png",
+    model: "Look 04.usdz",
+    directAR: true
+  },
+  {
+    number: "LOOK 05",
+    name: "URBAN SURVIVAL",
+    image: "Look 05.png",
+    model: "Look 05.usdz",
+    directAR: true
+  }
+];
+
+let current = 0;
+
+function showLook() {
+  const look = looks[current];
+
+  document.getElementById("preview").src =
+    encodeURI(look.image);
+
+  document.getElementById("number").textContent =
+    look.number;
+
+  document.getElementById("name").textContent =
+    look.name;
+
+  document.getElementById("counter").textContent =
+    (current + 1) + " / " + looks.length;
+
+  const button = document.getElementById("arButton");
+  const icon = document.getElementById("arIcon");
+
+  button.href = encodeURI(look.model);
+  icon.src = encodeURI(look.image);
+
+  if (look.directAR) {
+    button.setAttribute("rel", "ar");
+  } else {
+    button.removeAttribute("rel");
+  }
+}
+
+function changeLook(direction) {
+  current =
+    (current + direction + looks.length) % looks.length;
+
+  showLook();
+}
+
+showLook();
+</script>
+
+</body>
+</html>
